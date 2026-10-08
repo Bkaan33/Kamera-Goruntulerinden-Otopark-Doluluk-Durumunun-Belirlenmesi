@@ -1,27 +1,14 @@
 # Kamera Görüntülerinden Otopark Doluluk Durumunun Belirlenmesi
 
-Fırat Üniversitesi Bilgisayar Mühendisliği Tasarım Dersi kapsamında geliştirilen Grup 38 projesi.
+Kamera görüntülerinden park alanlarının doluluk durumunu analiz etmeyi ve güncel boş yer sayısını göstermeyi amaçlayan bir görüntü işleme projesi.
 
-**Ekip adı:** Grup 38. Akıllı Otopark Durum Takibi  
-**Takım kaptanı:** Kutay KAYA
+## Amaç
 
-## Projenin amacı
+Otopark görüntüsünde önceden tanımlanan park alanlarını dolu veya boş olarak sınıflandırmak. Boş alanların yeşil, dolu alanların kırmızı çerçevelerle gösterilmesi ve toplam boş yer sayısının ekrana yansıtılması hedeflenmektedir.
 
-Otopark görüntülerindeki önceden tanımlanmış park alanlarını analiz ederek dolu ve boş alanları belirlemek, boş yer sayısını ekranda göstermek. Boş alanların yeşil, dolu alanların kırmızı çerçevelerle gösterilmesi hedeflenmektedir.
+## Projenin mevcut aşaması
 
-## Mevcut aşama
-
-Hafta 1 kapsamındaki problem tanımı, yöntem seçimi, geliştirme planı ve görev dağılımı hazırlanmıştır. Bu belge planlanan sistemi açıklar. Çalışan prototip, deneysel doğruluk ve performans sonuçları henüz bu hazırlık kapsamında sunulmamaktadır.
-
-## Planlanan yöntem
-
-1. Park alanlarını ilgi bölgeleri (ROI) olarak işaretlemek ve koordinatlarını kaydetmek.
-2. Görüntüyü gri tona dönüştürmek.
-3. Gaussian bulanıklaştırma ve uyarlamalı eşikleme uygulamak.
-4. Her ROI içindeki piksel yoğunluğunu ölçerek dolu/boş kararını vermek.
-5. Durumları renkli çerçevelerle göstermek ve boş yer sayısını hesaplamak.
-
-Karar eşiği örnek dolu ve boş alanlarla belirlenecek; farklı ışık ve gölge koşullarında doğrulanacaktır. Bu aşamada model doğruluğu için sayısal bir başarı iddiası bulunmamaktadır.
+Proje planlama ve yöntem belirleme aşamasındadır. Çalışan prototip ve deneysel sonuçlar henüz bu depoda sunulmamaktadır.
 
 ## Kullanılması planlanan teknolojiler
 
@@ -30,54 +17,40 @@ Karar eşiği örnek dolu ve boş alanlarla belirlenecek; farklı ışık ve gö
 - NumPy
 - Video kaydı, webcam veya IP kamera görüntüsü
 
-## Geliştirme sırası
+## Planlanan yöntem
+
+1. Park alanlarını ilgi bölgeleri (ROI) olarak işaretlemek ve koordinatlarını kaydetmek.
+2. Görüntüyü gri tona dönüştürmek.
+3. Gaussian bulanıklaştırma ile gürültüyü azaltmak.
+4. Uyarlamalı eşikleme uygulamak.
+5. Her ROI içindeki piksel yoğunluğunu ölçerek dolu/boş kararı vermek.
+6. Alanların durumunu renkli çerçevelerle göstermek ve boş yer sayısını hesaplamak.
+
+Karar eşiğinin değeri ve yönü örnek dolu ve boş alanlarla belirlenecek; farklı ışık ve gölge koşullarında doğrulanacaktır.
+
+## Geliştirme aşamaları
 
 | Aşama | Beklenen çıktı |
 |---|---|
-| Sabit fotoğraf | ROI koordinatları ve fotoğraf üzerinde doluluk prototipi |
+| Sabit fotoğraf | ROI koordinatları ve fotoğraf üzerinde doluluk tespiti |
 | Video | Kare bazında güncellenen doluluk durumu ve boş yer sayacı |
 | Simülasyon ve test | Işık, gölge ve hareket senaryoları için ölçüm tablosu |
 | Canlı kamera | Kamera akışında çalışan prototip ve kurulum açıklaması |
 
-## Ekip ve görev dağılımı
-
-| Üye | Ana iş paketleri |
-|---|---|
-| Berke Kaan KAÇAR | Görüntü ön işleme; canlı kamera entegrasyonu |
-| Furkan TAŞKIRAN | Statik görüntüde doluluk tespiti; video ve dinamik sayaç |
-| Kutay KAYA | Veri ve ROI hazırlama; simülasyon ve performans testleri; ekip koordinasyonu |
-
-Her üye iki ana iş paketinden sorumludur. Raporlama ve teslim ortak yürütülür; herkes geliştirdiği modülü, yöntemini ve çıktısını belgeler. Ayrıntılı görev tanımları [proje planında](docs/PROJE_PLANI.md) yer alır.
-
 ## Başarı ölçütleri
 
-- **Doluluk doğruluğu:** Doğru sınıflandırılan park alanı sayısı / değerlendirilen toplam alan sayısı.
+- **Doluluk doğruluğu:** Doğru sınıflandırılan park alanı sayısının değerlendirilen toplam alan sayısına oranı.
 - **Boş yer sayım hatası:** Tahmin edilen ve gerçek boş yer sayıları arasındaki mutlak fark.
 - **İşlem süresi:** Kare başına ortalama işlem süresi.
-- **Kare hızı:** Video ve canlı kamera aşamalarında işlenen kare sayısı/saniye.
+- **Kare hızı:** Video ve canlı kamera aşamalarında saniyede işlenen kare sayısı.
 
-Gerçek doluluk etiketleri elle hazırlanacaktır. Henüz ölçüm sonucu olmadığı için bir doğruluk yüzdesi veya kare hızı belirtilmemektedir.
+Gerçek doluluk etiketleri elle hazırlanacaktır. Sayısal başarı ve performans değerleri testler tamamlandıktan sonra raporlanacaktır.
 
-## Önerilen dosya düzeni
+## Kaynaklar
 
-```text
-README.md
-.gitignore
-docs/
-  PROJE_PLANI.md
-  KAYNAKLAR.md
-  raporlar/
-    Hafta1_Proje_Raporu.docx
-src/
-  .gitkeep
-data/
-  README.md
-```
+1. OpenCV. [Smoothing Images](https://docs.opencv.org/4.x/d4/d13/tutorial_py_filtering.html).
+2. OpenCV. [Image Thresholding](https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html).
+3. OpenCV. [Getting Started with Videos](https://docs.opencv.org/4.x/dd/d43/tutorial_py_video_display.html).
+4. de Almeida ve diğerleri (2015). *PKLot - A robust dataset for parking lot classification*. Expert Systems with Applications, 42(11), 4937-4949. [DOI: 10.1016/j.eswa.2015.02.009](https://doi.org/10.1016/j.eswa.2015.02.009).
 
-`src/` geliştirme sırasında eklenecek kaynak kodları için ayrılmıştır. Veri örnekleri ve ROI koordinatları `data/` altında düzenlenecektir. Çalıştırma komutları, prototip ve bağımlılıkları eklendikten sonra belgelenecektir.
-
-## Rapor ve kaynaklar
-
-- [Hafta 1 proje raporu](docs/raporlar/Hafta1_Proje_Raporu.docx)
-- [Kaynaklar](docs/KAYNAKLAR.md)
-- [GitHub proje deposu](https://github.com/Bkaan33/Kamera-Goruntulerinden-Otopark-Doluluk-Durumunun-Belirlenmesi)
+PKLot çalışması, farklı otopark ve hava koşullarında park alanı sınıflandırmasının değerlendirilmesi için bir literatür örneğidir. Bu kaynağın listelenmesi, projede veri setinin kullanıldığı veya makaledeki algoritmanın uygulandığı anlamına gelmez.
