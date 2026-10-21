@@ -1,16 +1,19 @@
 """Otopark doluluk sistemi - çalıştırma dosyası (Kutay KAYA).
 
 Örnekler:
-    # Fotoğraf
-    python detector/main.py --source dataset/otopark.jpg --rois dataset/CarParkPos
+    # Fotoğraf (ROI dosyası varsayılan olarak dataset/rois.json)
+    python detector/main.py --source dataset/otopark.jpg
 
     # Video (tekrar etmek için --loop)
-    python detector/main.py --source dataset/otopark.mp4 --rois dataset/rois.json
+    python detector/main.py --source dataset/otopark.mp4
 
-    # Webcam (0 = varsayılan kamera)
-    python detector/main.py --source 0 --rois dataset/rois.json
+    # Webcam (0 = varsayılan kamera), farklı ROI dosyasıyla
+    python detector/main.py --source 0 --rois dataset/kamera_rois.json
 
-Pencerede: q veya ESC = çıkış, + / - = eşiği değiştir, boşluk = duraklat.
+    # Test için tahminleri evaluate.py formatında kaydet
+    python detector/main.py --source dataset/otopark.jpg --no-show --save-json sonuclar/otopark.json --scenario S1
+
+Pencerede: q veya ESC = çıkış, + / - = eşiği değiştir, boşluk = duraklat (video).
 """
 
 import argparse
@@ -21,9 +24,9 @@ from pathlib import Path
 import cv2
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from parking_detector import (VARSAYILAN_ESIK, VARSAYILAN_GENISLIK,  # noqa: E402
-                              VARSAYILAN_YUKSEKLIK, ParkingDetector, ROIHatasi,
-                              bos_sayisi, load_rois, save_predictions)
+from parking_detector import (VARSAYILAN_ESIK, VARSAYILAN_ROI_DOSYASI,  # noqa: E402
+                              ParkingDetector, ROIHatasi, bos_sayisi, load_rois,
+                              save_predictions)
 
 YESIL = (0, 200, 0)
 KIRMIZI = (0, 0, 220)
@@ -43,13 +46,12 @@ def ciz(frame, sonuclar, esik, fps=None):
     bos, toplam = bos_sayisi(sonuclar), len(sonuclar)
     # OpenCV Türkçe karakter (ş, ı) çizemediği için "Bos" yazılıyor
     metin = f"Bos: {bos} / {toplam}"
+    bilgi = f"esik={esik:.2f}" + (f"  fps={fps:.0f}" if fps else "")
     (tw, th), _ = cv2.getTextSize(metin, cv2.FONT_HERSHEY_SIMPLEX, 1.0, 2)
-    cv2.rectangle(cikti, (10, 10), (30 + tw, 30 + th), (40, 40, 40), -1)
+    cv2.rectangle(cikti, (10, 10), (30 + max(tw, 140), 45 + th), (40, 40, 40), -1)
     cv2.putText(cikti, metin, (20, 20 + th), cv2.FONT_HERSHEY_SIMPLEX, 1.0,
                 YESIL if bos else KIRMIZI, 2, cv2.LINE_AA)
-
-    bilgi = f"esik={esik:.2f}" + (f"  fps={fps:.0f}" if fps else "")
-    cv2.putText(cikti, bilgi, (20, 50 + th), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+    cv2.putText(cikti, bilgi, (20, 38 + th), cv2.FONT_HERSHEY_SIMPLEX, 0.45,
                 (255, 255, 255), 1, cv2.LINE_AA)
     return cikti
 
@@ -114,7 +116,7 @@ def video_isle(args, detector):
 
             baslangic = time.perf_counter()
             sonuclar = detector.detect(frame)
-            gecen = time.perf_counter() - baslangic
+            gecen = max(time.perf_counter() - baslangic, 1e-6)
             fps = 0.9 * fps + 0.1 * (1 / gecen) if fps else 1 / gecen
             cikti = ciz(frame, sonuclar, detector.esik, fps)
 
@@ -145,10 +147,9 @@ def video_isle(args, detector):
 def main():
     ap = argparse.ArgumentParser(description="Kamera görüntülerinden otopark doluluk tespiti")
     ap.add_argument("--source", required=True, help="Fotoğraf, video yolu veya kamera numarası (0)")
-    ap.add_argument("--rois", required=True, help="ROI dosyası (CarParkPos/pickle veya .json)")
+    ap.add_argument("--rois", default=str(VARSAYILAN_ROI_DOSYASI),
+                    help="ROI dosyası (varsayılan: dataset/rois.json)")
     ap.add_argument("--threshold", type=float, default=VARSAYILAN_ESIK, help="Doluluk eşiği (0-1)")
-    ap.add_argument("--width", type=int, default=VARSAYILAN_GENISLIK, help="CarParkPos alan genişliği")
-    ap.add_argument("--height", type=int, default=VARSAYILAN_YUKSEKLIK, help="CarParkPos alan yüksekliği")
     ap.add_argument("--history", type=int, default=5, help="Video için çoğunluk oyu kare sayısı")
     ap.add_argument("--output", help="Çıktıyı kaydet (fotoğraf veya .mp4)")
     ap.add_argument("--save-json", help="Tahminleri evaluate.py formatında kaydet (sadece fotoğraf)")
@@ -158,7 +159,7 @@ def main():
     args = ap.parse_args()
 
     try:
-        rois = load_rois(args.rois, args.width, args.height)
+        rois = load_rois(args.rois)
     except ROIHatasi as e:
         print(f"Hata: {e}")
         return 1
