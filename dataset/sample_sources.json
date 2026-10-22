@@ -1,0 +1,20 @@
+{
+  "repository": "DSBD-Research/MetaPKLot-Dataset",
+  "commit": "9218800c4eb2b7c1b17b51c8cdb07ad51686f8a2",
+  "subset": "PKLot/UFPR04",
+  "annotation_archive": "annotations/original/spots/PKLot/ufpr04_spots.tar.xz",
+  "images": [
+    "Sunny/2012-12-11/2012-12-11_17_06_09.jpg",
+    "Sunny/2012-12-17/2012-12-17_15_20_12.jpg",
+    "Sunny/2012-12-20/2012-12-20_19_10_14.jpg",
+    "Sunny/2012-12-24/2012-12-24_18_25_14.jpg",
+    "Cloudy/2012-12-14/2012-12-14_11_00_07.jpg",
+    "Cloudy/2012-12-14/2012-12-14_20_55_18.jpg",
+    "Cloudy/2012-12-17/2012-12-17_12_20_08.jpg",
+    "Cloudy/2012-12-22/2012-12-22_19_20_16.jpg",
+    "Rainy/2012-12-08/2012-12-08_19_00_15.jpg",
+    "Rainy/2012-12-14/2012-12-14_07_35_02.jpg",
+    "Rainy/2012-12-21/2012-12-21_18_25_14.jpg",
+    "Rainy/2012-12-26/2012-12-26_18_35_15.jpg"
+  ]
+}

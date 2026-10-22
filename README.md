@@ -8,7 +8,24 @@ Otopark görüntüsünde önceden tanımlanan park alanlarını dolu veya boş o
 
 ## Projenin mevcut aşaması
 
-Proje planlama ve yöntem belirleme aşamasındadır. Çalışan prototip ve deneysel sonuçlar henüz bu depoda sunulmamaktadır.
+Depoda görüntü ön işleme, doluluk tespiti ve fotoğraf/video/kamera çalıştırma kodları bulunmaktadır. `dataset/` klasörü 12 PKLot fotoğrafı, 37 park alanının koordinatları, gerçek doluluk etiketleri ve fareyle ROI seçim aracını içerir. Sayısal başarı hedefleri henüz kabul edilmiş deneysel sonuçlar değildir.
+
+## Hızlı başlangıç
+
+```bash
+python -m pip install -r requirements.txt
+python detector/main.py --source dataset/images/2012-12-11_17_06_09.jpg
+```
+
+Kendi otoparkının koordinatlarını seçmek için:
+
+```bash
+python dataset/roi_selector.py --image dataset/images/kendi_otoparkim.jpg --output dataset/kendi_rois.json
+```
+
+Sol tuşla park alanlarını çiz, `s` ile kaydet, `q` ile çık.
+Kurulum, JSON formatı, gerçek etiketler ve test komutları için
+[veri seti açıklamasına](dataset/README.md) bak.
 
 ## Kullanılması planlanan teknolojiler
 
@@ -53,4 +70,4 @@ Gerçek doluluk etiketleri elle hazırlanacaktır. Sayısal başarı ve performa
 3. OpenCV. [Getting Started with Videos](https://docs.opencv.org/4.x/dd/d43/tutorial_py_video_display.html).
 4. de Almeida ve diğerleri (2015). *PKLot - A robust dataset for parking lot classification*. Expert Systems with Applications, 42(11), 4937-4949. [DOI: 10.1016/j.eswa.2015.02.009](https://doi.org/10.1016/j.eswa.2015.02.009).
 
-PKLot çalışması, farklı otopark ve hava koşullarında park alanı sınıflandırmasının değerlendirilmesi için bir literatür örneğidir. Bu kaynağın listelenmesi, projede veri setinin kullanıldığı veya makaledeki algoritmanın uygulandığı anlamına gelmez.
+PKLot'un UFPR04 bölümünden 12 örnek fotoğraf bu depoda kullanılmıştır. Görüntü ve etiketlerin kaynakları, lisansı ve dönüşüm adımları [dataset/SOURCES.md](dataset/SOURCES.md) içinde açıklanır. Projedeki yöntem OpenCV ile ROI içi piksel sayımıdır; PKLot makalesindeki modelin uygulandığı iddia edilmez.
