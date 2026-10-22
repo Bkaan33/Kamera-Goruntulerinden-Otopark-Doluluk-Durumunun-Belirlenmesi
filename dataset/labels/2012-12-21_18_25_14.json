@@ -1,0 +1,154 @@
+{
+  "image": "2012-12-21_18_25_14.jpg",
+  "scenario": "S4",
+  "spots": [
+    {
+      "id": 0,
+      "occupied": true
+    },
+    {
+      "id": 1,
+      "occupied": false
+    },
+    {
+      "id": 2,
+      "occupied": true
+    },
+    {
+      "id": 3,
+      "occupied": false
+    },
+    {
+      "id": 4,
+      "occupied": true
+    },
+    {
+      "id": 5,
+      "occupied": true
+    },
+    {
+      "id": 6,
+      "occupied": true
+    },
+    {
+      "id": 7,
+      "occupied": false
+    },
+    {
+      "id": 8,
+      "occupied": false
+    },
+    {
+      "id": 9,
+      "occupied": false
+    },
+    {
+      "id": 10,
+      "occupied": true
+    },
+    {
+      "id": 11,
+      "occupied": false
+    },
+    {
+      "id": 12,
+      "occupied": false
+    },
+    {
+      "id": 13,
+      "occupied": true
+    },
+    {
+      "id": 14,
+      "occupied": false
+    },
+    {
+      "id": 15,
+      "occupied": true
+    },
+    {
+      "id": 16,
+      "occupied": false
+    },
+    {
+      "id": 17,
+      "occupied": false
+    },
+    {
+      "id": 18,
+      "occupied": false
+    },
+    {
+      "id": 19,
+      "occupied": true
+    },
+    {
+      "id": 20,
+      "occupied": true
+    },
+    {
+      "id": 21,
+      "occupied": false
+    },
+    {
+      "id": 22,
+      "occupied": false
+    },
+    {
+      "id": 23,
+      "occupied": false
+    },
+    {
+      "id": 24,
+      "occupied": false
+    },
+    {
+      "id": 25,
+      "occupied": false
+    },
+    {
+      "id": 26,
+      "occupied": true
+    },
+    {
+      "id": 27,
+      "occupied": false
+    },
+    {
+      "id": 28,
+      "occupied": true
+    },
+    {
+      "id": 29,
+      "occupied": false
+    },
+    {
+      "id": 30,
+      "occupied": true
+    },
+    {
+      "id": 31,
+      "occupied": false
+    },
+    {
+      "id": 32,
+      "occupied": true
+    },
+    {
+      "id": 33,
+      "occupied": false
+    },
+    {
+      "id": 34,
+      "occupied": true
+    },
+    {
+      "id": 35,
+      "occupied": true
+    },
+    {
+      "id": 36,
+      "occupied": false
+    }
+  ]
+}
